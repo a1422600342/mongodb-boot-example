@@ -9,13 +9,15 @@
 ###### 对应的用户名密码权限为：
 
 ```
-// 进入命令行
->user mongodb
->db.createUser("root",{roles:[ 
-{"role" : "userAdminAnyDatabase","db" : "admin"},
-{"role" : "dbOwner","db" : "admin"},
-{"role" : "clusterAdmin", "db": "admin"},
-{"role":"readWrite","db":"mymongo"}]});
+// 命令行，进入admin库
+>use admin
+// 创建超级管理员
+>db.createUser({user: "admin", pwd: "admin", roles: ["root"]});
+// 创建自定义库 mymongo
+>use mymongo
+>use admin
+// 创建自定义库的账户
+>db.createUser({user:"root",pwd:"root",roles:[{"role" : "userAdminAnyDatabase","db" : "admin"},{"role" : "dbOwner","db" : "admin"},{"role" : "clusterAdmin", "db": "admin"},{"role":"readWrite","db":"mymongo"}]});
 // 注意最后一行的readWrite对应数据库为mymongo
 ```
 
