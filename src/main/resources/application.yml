@@ -6,7 +6,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:root@172.16.1.65:27017/mymongo
+      uri: mongodb://root:root@172.16.0.184:27017/mymongo
   mvc:
     throw-exception-if-no-handler-found: true
     resources:

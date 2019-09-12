@@ -1,7 +1,10 @@
 package com.uniteddata.mongoexample.service;
 
+import com.uniteddata.mongoexample.entity.MapContainer;
 import com.uniteddata.mongoexample.entity.MapPoint;
+import com.uniteddata.mongoexample.repository.MapContainerRepository;
 import com.uniteddata.mongoexample.repository.MapRepository;
+import com.uniteddata.mongoexample.util.IdGenetatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +20,12 @@ import java.util.List;
 @Service
 public class MapService {
     private final MapRepository mr;
+    private final MapContainerRepository mcr;
 
     @Autowired
-    public MapService(MapRepository mr){
+    public MapService(MapRepository mr,MapContainerRepository mcr){
         this.mr = mr;
+        this.mcr = mcr;
     }
 
     public MapPoint getMapPoint(long id){
@@ -42,5 +47,11 @@ public class MapService {
     public MapPoint updateMapPoint(MapPoint mapPoint){
         MapPoint save = mr.save(mapPoint);
         return save;
+    }
+
+    public MapContainer saveMapContainer(MapContainer mapContainer){
+        long id = IdGenetatorUtil.getSnowFlakeId();
+        mapContainer.setId(id);
+        return mcr.insert(mapContainer);
     }
 }

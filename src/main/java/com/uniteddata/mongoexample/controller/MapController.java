@@ -1,6 +1,7 @@
 package com.uniteddata.mongoexample.controller;
 
 import com.uniteddata.mongoexample.bean.ResponseResult;
+import com.uniteddata.mongoexample.entity.MapContainer;
 import com.uniteddata.mongoexample.entity.MapPoint;
 import com.uniteddata.mongoexample.service.MapService;
 import com.uniteddata.mongoexample.util.ResultGeneratorUtil;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName MapController
@@ -59,5 +61,13 @@ public class MapController {
         hashMap.put("msg","修改成功！");
         hashMap.put("obj",save);
         return ResultGeneratorUtil.getResultSuccessWithData(hashMap);
+    }
+
+    // 测试自定义键值对
+    @PostMapping("/insertMapContainer")
+    public ResponseResult insertMapContainer(@RequestBody MapContainer mapContainer){
+        System.out.println(mapContainer);
+        MapContainer container = ms.saveMapContainer(mapContainer);
+        return ResultGeneratorUtil.getResultSuccessWithData(container);
     }
 }
